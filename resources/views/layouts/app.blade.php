@@ -8,10 +8,13 @@
 </head>
 <section class="px-8 py-4">
     <header class="container mx-auto">
-        <div class="">
+        <div class=" flex justify-items-center content-center">
             <div class="">
-                <img src="/img/logo.png" alt="logo" >
+                <img src="/img/logo.png" alt="logo"  class="object-contain" width="100px">
             </div >
+            <div class="text-3xl text-black-900 pt-5">
+                Tweety
+            </div>
         </div>
     </header>
 </section>
