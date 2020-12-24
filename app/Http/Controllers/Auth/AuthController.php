@@ -16,8 +16,9 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function store(Request $request)
+    public function storeUser(Request $request)
     {
+        dd($request->name);
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|string|email|unique:users|max:200',
@@ -45,6 +46,18 @@ class AuthController extends Controller
             return redirect()->intended('home');
         }
 
-        return redirect('login')->with('error', 'Failed to authenticate')
+        return redirect('login')->with('error', 'Failed to authenticate');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect('login');
+    }
+
+    public function home()
+    {
+        return view('home');
     }
 }
