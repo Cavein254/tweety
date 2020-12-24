@@ -6,9 +6,21 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Document</title>
 </head>
-
+<section class="px-8 py-4">
+    <header class="container mx-auto">
+        <div class="">
+            <div class="">
+                <img src="/img/logo.png" alt="logo" >
+            </div >
+        </div>
+    </header>
+</section>
 <body>
-@yield('content')
+<section class="px-8">
+    <main class="container mx-auto">
+    @yield('content')
+    </main>
+</section>
 
 </body>
 
