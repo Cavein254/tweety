@@ -13,7 +13,7 @@ use App\Http\Controllers\Auth\AuthController;
 |
 */
 
-Route::get('/home', [AuthController::class, 'home']);
+Route::get('/home', 'App\Http\Controllers\HomeController@index');
 
 Route::get('/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'storeUser']);
