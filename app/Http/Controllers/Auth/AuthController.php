@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -18,13 +19,19 @@ class AuthController extends Controller
 
     public function storeUser(Request $request)
     {
-        dd($request->name);
-        $request->validate([
+
+        $this->validate(request(), [
             'name' => 'required|string|max:100',
             'email' => 'required|string|email|unique:users|max:200',
             'password' => 'required|string|min:3|confirmed',
             'password_confirmation' => 'required',
         ]);
+        $user = new User();
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->password = $request['password'];
+        $user->save();
+
         return redirect('home');
     }
 
@@ -35,18 +42,22 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
-        $request->validate([
+        $this->validate(request(), [
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $userData = array(
+            'email' => $request['email'],
+            'password' => $request['password'],
+        );
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('home');
+        $data = DB::table('users')->where('email', '=', $userData['email'])->get();
+        if (($data[0]->password) == ($userData['password'])) {
+            return redirect('home');
+        } else {
+            return redirect('login');
         }
-
-        return redirect('login')->with('error', 'Failed to authenticate');
     }
 
     public function logout()
